@@ -16,15 +16,10 @@ public class Solution_TimeConversion {
         String appendtime = s.substring(2, s.length()-2);
 
         if(s.contains("PM")){
-            if(!"12".equals(time)){
-                time = Integer.parseInt(time) + 12 +"";
-                
-            }
+            if(!"12".equals(time)) time = Integer.parseInt(time) + 12 +"";
         }else {
-            if("12".equals(time)){
-                time = "00";
-                
-            }
+            if("12".equals(time))  time = "00";
+      
         }
         
         result = time;      
