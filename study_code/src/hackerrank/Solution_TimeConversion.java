@@ -1,31 +1,35 @@
 package hackerrank;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Solution_TimeConversion {
     /*
      * Complete the timeConversion function below.
      */
     static String timeConversion(String s) {
-        /*
-         * Write your code here.
-         * 집가서 마저 수정 
-         */
-        Matcher pmMatcher = Pattern.compile("PM").matcher(s);
+       String result = "";
 
+        String time = s.substring(0, 2);
+        String appendtime = s.substring(2, s.length()-2);
 
-        if(pmMatcher.find()){
-           
+        if(s.contains("PM")){
+            if(!"12".equals(time)){
+                time = Integer.parseInt(time) + 12 +"";
+                
+            }
         }else {
-            
+            if("12".equals(time)){
+                time = "00";
+                
+            }
         }
         
-        return "zzz";
+        result = time;      
+        result += appendtime;
+        return result;
     }
 
     private static final Scanner scan = new Scanner(System.in);
