@@ -16,14 +16,14 @@ public class Solution_LonelyInteger {
     static int lonelyinteger(int[] a) {
         List resultList = new ArrayList<Integer>();
         // 
-        List<Integer> list = Arrays.stream(a).boxed().collect(Collectors.toList());
-        resultList = list.parallelStream().distinct().collect(Collectors.toList()); //중복 제거 
+        List<Object> list = Arrays.stream(a).boxed().collect(Collectors.toList());
+        resultList = list.parallelStream().distinct().collect(Collectors.toList()); //以묐났 �젣嫄� 
         List resultList2 = new ArrayList<Integer>();
         for (int j = 0; j < resultList.size(); j++) {
             int count =0;
             int kkk = (int)resultList.get(j);
             for(int i  =0 ; i< list.size() ;i++ ){
-                if(kkk == list.get(i)){
+                if(kkk == (int)list.get(i)){
                     count ++;
                 }
             }
