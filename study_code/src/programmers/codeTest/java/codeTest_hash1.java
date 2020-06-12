@@ -1,0 +1,32 @@
+package programmers.codeTest.java;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.omg.CosNaming.IstringHelper;
+
+public class codeTest_hash1 {
+    public static String solution(String[] participant, String[] completion) {
+        String answer = "";
+        Map<String	, Integer> hash = new HashMap<>();
+        
+        for (String string : participant) hash.put(string, hash.getOrDefault(string, 0)+1);
+        for (String string : completion) hash.put(string, hash.get(string)-1);
+       
+        for (String name : hash.keySet()) {
+        	if(hash.get(name) != 0) return name;
+			
+		}
+        
+        return answer;
+    }
+    
+    public static void main(String[] args) {
+    	String[] participant = {"mislav","stanko","mislav","ann"}; 
+    	String[] completion= {"stanko","ana","mislav"};
+    	
+    	System.out.println(solution( participant, completion));
+	}
+}
