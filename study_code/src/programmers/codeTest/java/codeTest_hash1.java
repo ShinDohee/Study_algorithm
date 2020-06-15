@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.omg.CosNaming.IstringHelper;
-
+/*
+ * 	1. 참가자 해쉬 맵에  이름과 key값을 입력 하고, 일 이름이 다면 키값에 ( default 0) +1  해줌
+	2. 완주한 사람이름은 참가자 해쉬맵에 있으면 키값을 -1 해줌
+	3. 그래서 해당 키값이 0 인 사람의 이름을 return
+ * 
+ */
 public class codeTest_hash1 {
     public static String solution(String[] participant, String[] completion) {
         String answer = "";
