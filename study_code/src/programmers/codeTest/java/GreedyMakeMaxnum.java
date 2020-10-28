@@ -21,16 +21,31 @@ k는 1 이상 number의 자릿수 미만인 자연수입니다.
 	 */
 	public static void main(String[] args) {
 		solution("1924", 2);
+		solution("4177252841", 4);
 	}
 
 	public static String solution(String number, int k) {
 		String answer = "";
-		int maxNum = 0;
+		int start =0, maxidx =0;
+		char maxnum;
 		
-		boolean ft = true;
-		while(ft) {
+		for (int i = 0; i < number.length()-k; i++) {
+			maxnum = number.charAt(start);
+			maxidx=start;
+			for(int j=start; j<=i+k; j++) {
+				if(maxnum<number.charAt(j)) {
+					maxnum=number.charAt(j);
+					maxidx=j;
+				}
+			}
+			start = maxidx+1;
+			answer += maxnum;
+					
 			
 		}
+		
+		System.out.println(answer);
+		
 		
 		return answer;
 	}
