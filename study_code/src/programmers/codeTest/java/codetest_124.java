@@ -15,7 +15,8 @@ public class codetest_124 {
 	 * @return
 	 */
     public static String solution(int n) {
-        String answer = "";
+//        Stri	ng answer = "";
+        StringBuilder sb = new StringBuilder();
         int a = 0;
         
         while( n != 0) {
@@ -26,16 +27,16 @@ public class codetest_124 {
             	n -=1;
             	a =4;
             }
-            
-            answer= a+answer;
-         
+            sb.insert(0, a);
+//            answer= a+answer;
+//         
         }
 
-       return answer;
+       return sb.toString();
     }
     
     public static void main(String[] args) {
-		System.out.println(solution(10));
+		System.out.println(solution(13));
 	}
     
 }
