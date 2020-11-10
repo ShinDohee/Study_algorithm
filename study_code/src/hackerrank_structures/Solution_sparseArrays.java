@@ -7,8 +7,24 @@ import java.util.Scanner;
 
 public class Solution_sparseArrays {
 	// Complete the matchingStrings function below.
-	static int[] matchingStrings(String[] strings, String[] queries) {
-		return queries;
+	  static int[] matchingStrings(String[] strings, String[] queries) {
+	        int[] count_arr = new int[queries.length];
+	        for (int i = 0; i < queries.length; i++) {
+	            count_arr[i] = search(strings, queries[i]);
+	        }
+
+	        return count_arr;
+	    }
+
+	static int search(String[] arr, String s) {
+		int counter = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (s.equals(arr[i]))
+				counter++;
+
+		}
+
+		return counter;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
