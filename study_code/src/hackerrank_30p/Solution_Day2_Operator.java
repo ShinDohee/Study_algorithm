@@ -1,4 +1,4 @@
-package hackerrank;
+package hackerrank_30p;
 
 import java.util.Scanner;
 
