@@ -10,16 +10,14 @@ public class Solution_Day9_Recursion3 {
 	static int factorial(int n) {
 		int total=1;
 		
-		if(n==1) {
+		if(n==0) {
 			return 1;
 		}else {
-			for (int i = 1; i <= n; i++) {
-				total *= i;
-			}
+			return n*factorial(n-1);		
+	
 		}
 		
 		
-		return total;		
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
