@@ -10,22 +10,21 @@ public class Solution_Day4_Class_vs_Instance {
            if (initialAge > 0) {
                age = initialAge;
            } else {
-               System.out.print("Age is not valid, setting age to 0.");
+               System.out.println("Age is not valid, setting age to 0.");
                age = 0;
            }
        }
    public void amIOld() {
        // Write code determining if this person's age is old and print the correct
        // statement:
-       System.out.println(/* Insert correct print statement here */);
        if(age<13) {
-           System.out.print("You are young.");
+           System.out.println("You are young.");
            
        }else if(age<18) {
-           System.out.print("You are a teenager.");
+           System.out.println("You are a teenager.");
            
        }else {
-           System.out.print("You are old.");
+           System.out.println("You are old.");
            
        }
    }
