@@ -1,7 +1,5 @@
 package programmers.codeTest.java;
 
-import sun.swing.text.CountingPrintable;
-
 public class BlindRecruitment2020 {
 
 	public static void main(String[] args) {
@@ -40,7 +38,6 @@ public class BlindRecruitment2020 {
 				 if(copyS.indexOf(vsS) ==0) {
 					 copyS = copyS.substring(i);
 					 countvsS++;
-					 continue;
 				 }
 				 
 				 				 
