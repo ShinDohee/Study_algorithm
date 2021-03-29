@@ -51,7 +51,7 @@ public class Recomand_solution {
 //        "123_.def"
 //        "z-+.^."
 //        "=.="
-//        "=.="
+
 
 
                 "abcdefghijklmn.p"
