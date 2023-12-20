@@ -1,6 +1,8 @@
 package programmers.bagic_training.Level00;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Solution00_exchangeArray {
 
@@ -30,6 +32,84 @@ public class Solution00_exchangeArray {
 
                 ).toArray();
 
+    }
+
+    /**
+     * n 번째 원소까지
+     * 정수 리스트 num_list와 정수 n이 주어질 때, num_list의 첫 번째 원소부터 n 번째 원소까지의 모든 원소를 담은 리스트를 return하도록 solution 함수를 완성해주세요.
+     * https://school.programmers.co.kr/learn/courses/30/lessons/181889
+     * @param num_list
+     * @param n
+     * @return
+     */
+    public int[] solution_copyofArray(int[] num_list, int n) {
+        int[] answer = Arrays.copyOfRange(num_list, 0, n);
+        return answer;
+    }
+
+    /**
+     * 원소들의 곱과 합
+     * 문제 설명
+     * 정수가 담긴 리스트 num_list가 주어질 때,
+     * 모든 원소들의 곱이 모든 원소들의 합의 제곱보다 작으면 1을 크면 0을 return하도록 solution 함수를 완성해주세요.
+     * @param num_list
+     * @return
+     */
+    public int solution_diffSumOrMulti(int[] num_list) {
+;
+        int answer = Arrays.stream(num_list).sum()* Arrays.stream(num_list).sum() >Arrays.stream(num_list).reduce(1, (a, b) -> a * b)? 1:0;
+        return answer;
+    }
+
+    /**
+     *카운트 업
+     문제 설명
+     정수 start_num와 end_num가 주어질 때,
+     start_num부터 end_num까지의 숫자를 차례로 담은 리스트를 return하도록 solution 함수를 완성해주세요.
+     *
+     */
+    public int[] solution_makeArray(int start_num, int end_num) {
+        int[] answer = IntStream.rangeClosed(start_num, end_num +1).toArray();
+
+        return answer;
+    }
+
+
+    /**
+     * 조건에 맞게 수열 변환하기 3
+     *  정수 배열 arr와 자연수 k가 주어집니다.
+     *
+     * 만약 k가 홀수라면 arr의 모든 원소에 k를 곱하고, k가 짝수라면 arr의 모든 원소에 k를 더합니다.
+     *
+     * 이러한 변환을 마친 후의 arr를 return 하는 solution 함수를 완성해 주세요.
+     * @param arr
+     * @param k
+     * @return
+     */
+    public int[] solution_optionArray(int[] arr, int k) {
+        int[] answer = {};
+        if(k%2 ==0 ){
+            //모든원소에 k 더하고
+            answer=  Arrays.stream(arr).map(x->x+k).toArray();
+        }else {
+            // 모든 원소에 k 곱하고
+            answer=  Arrays.stream(arr).map(x->x*k).toArray();
+        }
+
+        return answer;
+    }
+
+    /**
+     * 배열 만들기 1
+     * 정수 n과 k가 주어졌을 때, 1 이상 n이하의 정수 중에서 k의 배수를 오름차순으로 저장한 배열을 return 하는 solution 함수를 완성해 주세요.
+     * @param n
+     * @param k
+     * @return
+     */
+    public int[] solution(int n, int k) {
+        int[] answer = IntStream.range(0, n)
+                .filter(x -> x%k ==0).toArray();
+        return answer;
     }
 
     public static void main(String[] args) {
