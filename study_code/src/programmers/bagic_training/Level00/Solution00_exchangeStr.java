@@ -1,5 +1,6 @@
 package programmers.bagic_training.Level00;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -32,6 +33,21 @@ public class Solution00_exchangeStr {
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
+
+    /**
+     * 문자 리스트를 문자열로 변환하기
+     * 문자들이 담겨있는 배열 arr가 주어집니다. arr의 원소들을 순서대로 이어 붙인 문자열을 return 하는 solution함수를 작성해 주세요.
+     * @param arr
+     * @return
+     */
+    public String solution_transFromListToStr(String[] arr) {
+        String answer = "";
+
+
+
+        return   Arrays.stream(arr).collect(Collectors.joining());
+    }
+
     public static void main(String[] args) {
         /**
          *         int n = 10 ;

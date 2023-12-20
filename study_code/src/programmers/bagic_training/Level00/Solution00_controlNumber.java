@@ -31,7 +31,6 @@ public class Solution00_controlNumber {
     }
 
 
-
     public static void main(String[] args) {
         System.out.println(solution(0, 	"wsdawsdassw"));
     }
