@@ -17,7 +17,7 @@ public class Solution00_mkStr {
      *     그리고 두 정수 n과 m이 주어질 때,
      *     n과 m이 ineq와 eq의 조건에 맞으면 1을 아니면 0을 return하도록 solution 함수를 완성해주세요.
      *
-     *     첫 시도 : 66점 
+     *     첫 시도 : 66점ㅌ
      * @param ineq
      * @param eq
      * @param n
@@ -26,13 +26,13 @@ public class Solution00_mkStr {
      */
     public static int solution(String ineq, String eq, int n, int m) {
         if (ineq.equals(">") && eq.equals("=")) {
-            return n > m ? 1 : 0;
+            return n  >= m ? 1 : 0;
         } else if (ineq.equals(">") && eq.equals("!")) {
-            return n >= m ? 1 : 0;
+            return n > m ? 1 : 0;
         } else if (ineq.equals("<") && eq.equals("=")) {
-            return n < m ? 1 : 0;
-        } else if (ineq.equals("<") && eq.equals("!")) {
             return n <= m ? 1 : 0;
+        } else if (ineq.equals("<") && eq.equals("!")) {
+            return n < m ? 1 : 0;
         }else {
             // 예외 처리: ineq와 eq가 주어진 조건을 만족하지 않는 경우
             return -1;
