@@ -35,6 +35,51 @@ public class Solution00_exchangeStr {
     }
 
     /**
+     * 문자열 여러 번 뒤집기
+     * 문제 설명
+     * 문자열 my_string과 이차원 정수 배열 queries가 매개변수로 주어집니다.
+     * queries의 원소는 [s, e] 형태로, my_string의 인덱스 s부터 인덱스 e까지를 뒤집으라는 의미입니다.
+     * my_string에 queries의 명령을 순서대로 처리한 후의 문자열을 return 하는 solution 함수를 작성해 주세요.
+     *
+     * "rermgorpsam"	[[2, 3], [0, 7], [5, 9], [6, 10]]	"programmers"
+     *
+     *
+     * @param my_string
+     * @param queries
+     * @return
+     */
+    public static String solution_stransStr(String my_string, int[][] queries) {
+        String answer = my_string;
+        int i = 1;
+        for (int [] query: queries) {
+            answer = reverseSubstring(answer, query[0], query[1]);
+
+            System.out.println(i++ +"번째 교환 : "+answer);
+        }
+
+        return answer;
+    }
+
+    /**
+     * 해당 범위의 str 뒤집는 메소드
+     * @param str
+     * @param startIndex
+     * @param endIndex
+     * @return
+     */
+    public static String reverseSubstring(String str, int startIndex, int endIndex) {
+        char[] charArray = str.toCharArray();
+        while (startIndex < endIndex) {
+            char temp = charArray[startIndex];
+            charArray[startIndex] = charArray[endIndex];
+            charArray[endIndex] = temp;
+
+            startIndex++;
+            endIndex--;
+        }
+        return new String(charArray);
+    }
+    /**
      * 문자 리스트를 문자열로 변환하기
      * 문자들이 담겨있는 배열 arr가 주어집니다. arr의 원소들을 순서대로 이어 붙인 문자열을 return 하는 solution함수를 작성해 주세요.
      * @param arr
@@ -56,9 +101,12 @@ public class Solution00_exchangeStr {
          *          https://school.programmers.co.kr/learn/courses/30/lessons/181845 (문자열로 변환 )
          */
 
-        String myString = "cvsgiorszzzmrpaqpe";
-        int[] indexList = {16, 6, 5, 3, 12, 14, 11, 11, 17, 12, 7};
-        System.out.println(solution_makeString(myString, indexList));
+//        String myString = "cvsgiorszzzmrpaqpe";
+//        int[] indexList = {16, 6, 5, 3, 12, 14, 11, 11, 17, 12, 7};
+//        System.out.println(solution_makeString(myString, indexList));
+         String str = "rermgorpsam";
+         int [][] arr = {{2, 3},{0, 7},{5, 9},{6, 10}};
+        solution_stransStr(str, arr);
 
     }
 }
