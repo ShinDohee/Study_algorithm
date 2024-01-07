@@ -2,6 +2,7 @@ package programmers.bagic_training.Level00;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -101,6 +102,23 @@ public class Solution00_exchangeArray {
     }
 
     /**
+     * 카운트 다운
+     * 문제 설명
+     * 정수 start_num와 end_num가 주어질 때, start_num에서 end_num까지 1씩 감소하는 수들을 차례로 담은 리스트를 return하도록 solution 함수를 완성해주세요.
+     * @param start
+     * @param end_num
+     * @return
+     */
+    public int[] solution_countDownArray(int start, int end_num) {
+        int[] answer = IntStream.range(end_num, start)
+                .boxed()
+                .sorted(Comparator.reverseOrder())
+                .mapToInt(Integer::intValue)
+                .toArray();
+        return answer;
+    }
+
+    /**
      * 배열 만들기 1
      * 정수 n과 k가 주어졌을 때, 1 이상 n이하의 정수 중에서 k의 배수를 오름차순으로 저장한 배열을 return 하는 solution 함수를 완성해 주세요.
      * @param n
@@ -162,6 +180,37 @@ public class Solution00_exchangeArray {
             }
         }
         return result_Arr.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    /**
+     *    배열 만들기 5
+     *    문제 설명
+     * 문자열 배열 intStrs와 정수 k, s, l가 주어집니다. intStrs의 원소는 숫자로 이루어져 있습니다.
+     *
+     * 배열 intStrs의 각 원소마다 s번 인덱스에서 시작하는 길이 l짜리 부분 문자열을 잘라내 정수로 변환합니다.
+     * 이때 변환한 정수값이 k보다 큰 값들을 담은 배열을 return 하는 solution 함수를 완성해 주세요.
+     *
+     *
+     * intStrs	                                        k	s	l	result
+     * [	[56789, 99999]
+     */
+
+    public static int[] solution_mkArray5(String[] intStrs, int k, int s, int l) {
+
+        Arrays.stream(intStrs)
+                .forEach( x -> {
+                    System.out.println(Integer.parseInt(x.substring(s,s+l)));
+                    System.out.println(Integer.parseInt(x.substring(s,s+l)) > k );
+                });
+
+        int[] answer =
+                Arrays.stream(intStrs)
+                        .filter( x -> Integer.parseInt(x.substring(s,s+l)) >k  )
+                        .mapToInt( x -> Integer.parseInt(x.substring(s,s+l))).toArray()
+                        ;
+
+
+        return answer;
     }
 
     /**
@@ -334,7 +383,13 @@ public class Solution00_exchangeArray {
 
 //        solution_sequence2(arr, queris);
 
-        solution_mkArray4(arr);
+        String[] intStrs ={"0123456789","9876543210","9999999999999"};
+        int k =50000;
+        int s =	5;
+        int l =	5;
+       int [] result =  solution_mkArray5(intStrs , k, s, l);
+
+       System.out.println(result);
 
     }
 
