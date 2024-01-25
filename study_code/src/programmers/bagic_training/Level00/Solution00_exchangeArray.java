@@ -79,6 +79,44 @@ public class Solution00_exchangeArray {
 
 
     /**
+     * 조건에 맞게 수열 변환하기 2
+     * 문제 설명
+     * 정수 배열 arr가 주어집니다. arr의 각 원소에 대해 값이 50보다 크거나 같은 짝수라면 2로 나누고, 50보다 작은 홀수라면 2를 곱하고 다시 1을 더합니다.
+     *
+     * 이러한 작업을 x번 반복한 결과인 배열을 arr(x)라고 표현했을 때, arr(x) = arr(x + 1)인 x가 항상 존재합니다. 이러한 x 중 가장 작은 값을 return 하는 solution 함수를 완성해 주세요.
+     *
+     * 단, 두 배열에 대한 "="는 두 배열의 크기가 서로 같으며, 같은 인덱스의 원소가 각각 서로 같음을 의미합니다.
+     * @param arr
+     * @return
+     */
+    public  static int solution_optionArray2(int[] arr) {
+        int answer = 0;
+        int[] original = {}; // 복사
+         while (!Arrays.equals(original, arr)) {
+
+            original = Arrays.copyOf(arr, arr.length);
+            arr = Arrays.stream(arr)
+                    .map(value -> {
+                        //(value % 2 == 0 && value >50) ? : (
+                        if(value >50 && value %2 ==0){
+                           return  value / 2;
+                        }else if(value <50 && value %2==1){
+                            return  value * 2 + 1;
+
+                        }
+
+                        return value;
+
+                    }).toArray();
+
+             answer++;
+        }
+
+        return answer-1;
+    }
+
+
+    /**
      * 조건에 맞게 수열 변환하기 3
      *  정수 배열 arr와 자연수 k가 주어집니다.
      *
@@ -89,7 +127,7 @@ public class Solution00_exchangeArray {
      * @param k
      * @return
      */
-    public int[] solution_optionArray(int[] arr, int k) {
+    public int[] solution_optionArray3(int[] arr, int k) {
         int[] answer = {};
         if(k%2 ==0 ){
             //모든원소에 k 더하고
@@ -118,6 +156,48 @@ public class Solution00_exchangeArray {
                 .toArray();
         return answer;
     }
+
+    /**
+     * 정수가 있을 때, 짝수라면 반으로 나누고, 홀수라면 1을 뺀 뒤 반으로 나누면, 마지막엔 1이 됩니다. 예를 들어 10이 있다면 다음과 같은 과정으로 1이 됩니다.
+     *
+     * 10 / 2 = 5
+     * (5 - 1) / 2 = 4
+     * 4 / 2 = 2
+     * 2 / 2 = 1
+     * 위와 같이 4번의 나누기 연산으로 1이 되었습니다.
+     *
+     * 정수들이 담긴 리스트 num_list가 주어질 때, num_list의 모든 원소를 1로 만들기 위해서 필요한 나누기 연산의 횟수를 return하도록 solution 함수를 완성해주세요.
+     * @param num_list
+     * @return
+     * Todo: steam 으로 생각해볼것
+     *
+     *         return Arrays.stream(num_list)
+     *                       .map(num -> {
+     *                           int count = 0;
+     *
+     *                           while (num != 1) {
+     *                               num = (num % 2 == 0) ? num / 2 : (num - 1) / 2;
+     *                               count++;
+     *                           }
+     *
+     *                           return count;
+     *                       })
+     *                       .sum();
+     */
+    public int solution_makeone1(int[] num_list) {
+        int answer = 0;
+        int num =0;
+        for(int i =0; i < num_list.length; i++){
+            num = num_list[i];
+            while(num!=1){
+
+                num= num/2;
+                answer++;
+            }
+        }
+        return answer;
+    }
+
 
     /**
      * 배열 만들기 1
@@ -393,6 +473,32 @@ public class Solution00_exchangeArray {
         return answer;
     }
 
+
+    /**
+     * 수열과 구간 쿼리 1
+     * 문제 설명
+     * 정수 배열 arr와 2차원 정수 배열 queries이 주어집니다. queries의 원소는 각각 하나의 query를 나타내며, [s, e] 꼴입니다.
+     *
+     * 각 query마다 순서대로 s ≤ i ≤ e인 모든 i에 대해 arr[i]에 1을 더합니다.
+     *
+     * 위 규칙에 따라 queries를 처리한 이후의 arr를 return 하는 solution 함수를 완성해 주세요.
+     * @param arr
+     * @param queries
+     * @return
+     */
+    public static int[] solution_sequence1(int[] arr, int[][] queries) {
+
+        for(int i =0 ; i < queries.length; i++ ){
+            int[] query = queries[i];
+            for(int j = query[0]; j <=query[1]; j++ ){
+                arr[j]++;
+            }
+
+
+        }
+        return arr;
+    }
+
     /**
      * 리스트 자르기
      * 문제 설명
@@ -622,6 +728,20 @@ public class Solution00_exchangeArray {
     }
 
     /**
+     * 5명씩
+     * 문제 설명
+     * 최대 5명씩 탑승가능한 놀이기구를 타기 위해 줄을 서있는 사람들의 이름이 담긴 문자열 리스트 names가 주어질 때, 앞에서 부터 5명씩 묶은 그룹의 가장 앞에 서있는 사람들의 이름을 담은 리스트를 return하도록 solution 함수를 완성해주세요. 마지막 그룹이 5명이 되지 않더라도 가장 앞에 있는 사람의 이름을 포함합니다.
+     * @param names
+     * @return
+     */
+    public static String[] solution_five(String[] names) {
+        List<String> answer = new ArrayList<>();;
+
+        answer =  IntStream.range(0, names.length).filter(i -> i%5==0).mapToObj(index ->names[index]).collect(Collectors.toList());
+        return answer.toArray(new String[0]);
+    }
+
+    /**
      * 배열의 원소만큼 추가하기
      * 문제 설명
      * 아무 원소도 들어있지 않은 빈 배열 X가 있습니다.
@@ -642,9 +762,9 @@ public class Solution00_exchangeArray {
     }
     public static void main(String[] args) {
 //        int[] arr = {1, 2, 3, 100, 99, 98};
-        int[] arr = {1, 4, 2, 5, 3};
+        int[] arr = {1, 2, 3, 100, 99, 98};
         int [][] queris = {{0, 4, 1},{0, 3, 2},{0, 3, 3}};
-
+        solution_optionArray2 (arr);
 //        // solution 메서드 호출
 //        int[] result = solution(arr);
 
@@ -664,8 +784,8 @@ public class Solution00_exchangeArray {
 //
 //        solution_find2(array);
 
-        String [] str =  {"u", "u", "r", "l" ,"u","sdf"	};
-       solution_leftRight2 (str);
+        String [] str =  {"nami", "ahri", "jayce", "garen", "ivern", "vex", "jinx"};
+       solution_five (str);
 
 //       int []arr123 = {2, 1, 6} ;
 //       solution_exchangeindex(arr123, 2);
