@@ -124,14 +124,28 @@ public class Solution00_mkStr {
      * @param my_string
      * @param indices
      * @return
-     * @TODO: 08일날 다시하기 
+     * @TODO: 08일날 다시하기
      */
-    public String solution(String my_string, int[] indices) {
-        String answer = "";
-        return answer;
+    public static String solution_removeChar(String my_string, int[] indices) {
+        StringBuilder answer = new StringBuilder();
+
+        for(int i =0; i< my_string.length(); i++){
+            int index = i;
+            if( Arrays.stream(indices).anyMatch(number -> number == index) ) continue;
+
+            answer.append(my_string.charAt(i));
+        }
+
+
+
+        return answer.toString();
     }
     public static void main(String[] args) {
-        solution_mkStrArray("parogramers");
+//        solution_mkStrArray("parogramers");
+        int [] indices = {1, 16, 6, 15, 0, 10, 11, 3};
+        String str = "apporoograpemmemprs";
+        solution_removeChar (str, indices);
+
     }
 
 }

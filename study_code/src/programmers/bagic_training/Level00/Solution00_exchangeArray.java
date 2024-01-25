@@ -1,10 +1,11 @@
 package programmers.bagic_training.Level00;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.OptionalInt;
+    import java.util.ArrayList;
+    import java.util.List;
 
 public class Solution00_exchangeArray {
 
@@ -150,6 +151,31 @@ public class Solution00_exchangeArray {
     }
 
     /**
+     * 배열 만들기 3
+     * 문제 설명
+     * 정수 배열 arr와 2개의 구간이 담긴 배열 intervals가 주어집니다.
+     *
+     * intervals는 항상 [[a1, b1], [a2, b2]]의 꼴로 주어지며 각 구간은 닫힌 구간입니다. 닫힌 구간은 양 끝값과 그 사이의 값을 모두 포함하는 구간을 의미합니다.
+     *
+     * 이때 배열 arr의 첫 번째 구간에 해당하는 배열과 두 번째 구간에 해당하는 배열을 앞뒤로 붙여 새로운 배열을 만들어 return 하는 solution 함수를 완성해 주세요.
+     * @param arr
+     * @param intervals
+     * @return
+     */
+    public int[] solution(int[] arr, int[][] intervals) {
+        int[] answer = {};
+        int [] partOfArr ={};
+        ArrayList<Integer> result_Arr = new ArrayList<>();
+        for(int i=0; i <intervals.length; i++){
+            partOfArr = Arrays.copyOfRange(arr,intervals[i][0], intervals[i][1]+1);
+            result_Arr.addAll(Arrays.asList(Arrays.stream(partOfArr).boxed().toArray(Integer[]::new)));
+        }
+
+        answer = result_Arr.stream().mapToInt(Integer::intValue).toArray();
+        return answer;
+    }
+
+    /**
      * 배열 만들기 4
      * 문제 설명
      * 정수 배열 arr가 주어집니다. arr를 이용해 새로운 배열 stk를 만드려고 합니다.
@@ -194,7 +220,6 @@ public class Solution00_exchangeArray {
      * intStrs	                                        k	s	l	result
      * [	[56789, 99999]
      */
-
     public static int[] solution_mkArray5(String[] intStrs, int k, int s, int l) {
 
         Arrays.stream(intStrs)
@@ -368,6 +393,253 @@ public class Solution00_exchangeArray {
         return answer;
     }
 
+    /**
+     * 리스트 자르기
+     * 문제 설명
+     * 정수 n과 정수 3개가 담긴 리스트 slicer 그리고 정수 여러 개가 담긴 리스트 num_list가 주어집니다. slicer에 담긴 정수를 차례대로 a, b, c라고 할 때, n에 따라 다음과 같이 num_list를 슬라이싱 하려고 합니다.
+     *
+     * n = 1 : num_list의 0번 인덱스부터 b번 인덱스까지
+     * n = 2 : num_list의 a번 인덱스부터 마지막 인덱스까지
+     * n = 3 : num_list의 a번 인덱스부터 b번 인덱스까지
+     * n = 4 : num_list의 a번 인덱스부터 b번 인덱스까지 c 간격으로
+     * 올바르게 슬라이싱한 리스트를 return하도록 solution 함수를 완성해주세요.
+     * @param n
+     * @param slicer
+     * @param num_list
+     * @return
+     * TODO : 블로그
+     */
+    public int[] solution(int n, int[] slicer, int[] num_list) {
+        int[] answer = {};
+
+        int a = slicer[0];
+        int b = slicer[1];
+        int c = slicer[2];
+
+        if(n==1) { //0번 인덱스부터 b번 인덱스까지
+            answer = Arrays.copyOfRange(num_list, 0, b+1);
+        }else if (n==2) { // num_list의 a번 인덱스부터 마지막 인덱스까지
+            answer = Arrays.copyOfRange(num_list, a , num_list.length +1);
+        }else if (n==3){ //num_list의 a번 인덱스부터 b번 인덱스까지
+            answer = Arrays.copyOfRange(num_list, a , b+1);
+        }else if (n==4){ // num_list의 a번 인덱스부터 b번 인덱스까지 c 간격으로
+            answer = IntStream.range(0, (b - a) / c + 1)
+                    .map(i -> num_list[a + i * c])
+                    .toArray();
+        }
+
+        return answer;
+    }
+
+    /**
+     * 2의 영역
+     * 문제 설명
+     * 정수 배열 arr가 주어집니다. 배열 안의 2가 모두 포함된 가장 작은 연속된 부분 배열을 return 하는 solution 함수를 완성해 주세요.
+     *
+     * 단, arr에 2가 없는 경우 [-1]을 return 합니다.
+     * @param arr
+     * @return
+     */
+    public static int[] solution_find2(int[] arr) {
+        int[] answer = {};
+        int count2 = (int) Arrays.stream(arr).filter(x -> x==2).count();
+
+        if(count2 == 0) return new int[]{-1};
+
+        // 첫 번째 2의 인덱스 찾기
+        int firstIndex = findFirstIndex(arr, 2);
+
+        // 마지막 2의 인덱스 찾기
+        int lastIndex = findLastIndex(arr, 2);
+        // 첫 번째 2의 인덱스 찾기
+
+        return Arrays.copyOfRange(arr, firstIndex, lastIndex+1);
+    }
+    private static int findFirstIndex(int[] array, int targetValue) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == targetValue) {
+                return i;
+            }
+        }
+        return -1; // 찾고자 하는 값이 배열에 없는 경우
+    }
+
+    private static int findLastIndex(int[] array, int targetValue) {
+        for (int i = array.length - 1; i >= 0; i--) {
+            if (array[i] == targetValue) {
+                return i;
+            }
+        }
+        return -1; // 찾고자 하는 값이 배열에 없는 경우
+    }
+
+    /**
+     * 왼쪽 오른쪽
+     * 문제 설명
+     * 문자열 리스트 str_list에는
+     * "u", "d", "l", "r" 네 개의 문자열이 여러 개 저장되어 있습니다.
+     * str_list에서 "l"과 "r" 중 먼저 나오는 문자열이 "l"이라면 해당 문자열을 기준으로 왼쪽에 있는 문자열들을 순서대로 담은 리스트를,
+     * 먼저 나오는 문자열이 "r"이라면 해당 문자열을 기준으로 오른쪽에 있는 문자열들을 순서대로 담은 리스트를 return하도록 solution 함수를 완성해주세요.
+     * "l"이나 "r"이 없다면 빈 리스트를 return합니다.
+     * @param str_list
+     * @return
+     * Tod0 : 블로그 왼쪽 오른쪽 ... 왜 90점이냐 .. --? 조건이 안맞앗음
+     */
+    public  static String[] solution_leftRight(String[] str_list) {
+        String[] answer = {};
+
+        int l_index = IntStream.range(0, str_list.length)
+                .filter(i -> str_list[i].equals("l"))
+                .findFirst()
+                .orElse(-1);
+
+        int r_index = IntStream.range(0, str_list.length)
+                .filter(i -> str_list[i].equals("r"))
+                .findFirst()
+                .orElse(-1);
+
+//        if(l_index == -1  || r_index == -1) {
+//            return new String[]{};
+//        }else if ( l_index < r_index ){
+//            answer = Arrays.copyOfRange(str_list, 0, l_index);
+//        }else if ( r_index < l_index ) {
+//            answer = Arrays.copyOfRange(str_list, r_index, str_list.length);
+//        }
+
+
+        if(l_index != -1 && (r_index == -1 || l_index < r_index)) {
+            answer = Arrays.copyOfRange(str_list, 0, l_index);
+        }else if (r_index != -1 && (l_index == -1 || l_index > r_index) ) {
+            answer = Arrays.copyOfRange(str_list, r_index+1, str_list.length);
+        }
+
+        return answer;
+    }
+    public  static String[] solution_leftRight2(String[] str_list) {
+        List<String> resultList = new ArrayList<>();
+
+
+        int lIndex = Arrays.asList(str_list).indexOf("l");
+        int rIndex = Arrays.asList(str_list).indexOf("r");
+
+        if (lIndex != -1 && (rIndex == -1 || lIndex < rIndex)) {
+            // "l"이 포함되어    있고 "r"이 없거나 "l"이 먼저 나온 경우
+            resultList.addAll(Arrays.asList(str_list).subList(0, lIndex));
+        } else if (rIndex != -1 && (lIndex == -1 || rIndex < lIndex)) {
+            // "r"이 포함되어 있고 "l"이 없거나 "r"이 먼저 나온 경우
+            resultList.addAll(Arrays.asList(str_list).subList(rIndex + 1, str_list.length));
+        }
+
+        return resultList.toArray(new String[0]);
+
+    }
+
+    /**
+     * 배열 조각하기
+     * 문제 설명
+     * 정수 배열 arr와 query가 주어집니다.
+     *
+     * query를 순회하면서 다음 작업을 반복합니다.
+     *
+     * 짝수 인덱스에서는 arr에서 query[i]번 인덱스를 제외하고 배열의 query[i]번 인덱스 뒷부분을 잘라서 버립니다.
+     * 홀수 인덱스에서는 arr에서 query[i]번 인덱스는 제외하고 배열의 query[i]번 인덱스 앞부분을 잘라서 버립니다.
+     * 위 작업을 마친 후 남은 arr의 부분 배열을 return 하는 solution 함수를 완성해 주세요.
+     * @param arr
+     * @param query
+     * @return
+     */
+    public int[] solution(int[] arr, int[] query) {
+        int[] answer = arr;
+        int [] tmp = {};
+        ArrayList arrList = (ArrayList) Arrays.asList(arr);
+        for( int i =0; i< query.length; i++){
+            if(i%2==0){
+                tmp = Arrays.copyOfRange(answer, 0, query[i]+1);
+            }else {
+                tmp = Arrays.copyOfRange(answer, query[i], answer.length+1);
+            }
+            answer = tmp;
+        }
+        return answer;
+    }
+    public static  int[] solution_exchangeindex(int[] num_list, int n) {
+
+        int [] after_n = Arrays.copyOfRange(num_list, n, num_list.length+1);
+        int [] before_n = Arrays.copyOfRange(num_list,0, n);
+        int[] answer = IntStream.concat(Arrays.stream(after_n), Arrays.stream(before_n)).toArray();
+
+        return answer;
+    }
+
+    /**
+     * 할 일 목록
+     * 문제 설명
+     * 오늘 해야 할 일이 담긴 문자열 배열 todo_list와 각각의 일을 지금 마쳤는지를 나타내는
+     * boolean 배열 finished가 매개변수로 주어질 때,
+     * todo_list에서 아직 마치지 못한 일들을 순서대로 담은 문자열 배열을 return 하는 solution 함수를 작성해 주세요.
+     * @param todo_list
+     * @param finished
+     * @return
+     */
+    public String[] solution_todoList(String[] todo_list, boolean[] finished) {
+        List<String> resultList = new ArrayList<>();
+        String[] answer = {};
+        for( int i =0; i< finished.length; i++ ){
+            if(finished[i] == false){
+                resultList.add(todo_list[i]);
+            }
+        }
+
+
+        List<String> resultList2 = IntStream.range(0, finished.length)
+                .filter(i -> !finished[i])
+                .mapToObj(i -> todo_list[i])
+                .collect(Collectors.toList());
+//        return answer;
+        return resultList2.toArray(new String[0]);
+    }
+
+    /**
+     * n보다 커질 때까지 더하기
+     * 문제 설명
+     * 정수 배열 numbers와 정수 n이 매개변수로 주어집니다. numbers의 원소를 앞에서부터 하나씩 더하다가 그 합이 n보다 커지는 순간 이때까지 더했던 원소들의 합을 return 하는 solution 함수를 작성해 주세요.
+     * @param numbers
+     * @param n
+     * @return
+     */
+    public int solution_sumvsN(int[] numbers, int n) {
+        int answer =0;
+
+        for(int i =0; i<numbers.length; i++){
+            answer+=numbers[i];
+            if(answer > n){
+                break;
+            }
+        }
+
+        return answer;
+
+    }
+
+    /**
+     * 배열의 원소만큼 추가하기
+     * 문제 설명
+     * 아무 원소도 들어있지 않은 빈 배열 X가 있습니다.
+     * 양의 정수 배열 arr가 매개변수로 주어질 때,
+     * arr의 앞에서부터 차례대로 원소를 보면서 원소가 a라면 X의 맨 뒤에 a를 a번 추가하는 일을 반복한 뒤의 배열 X를 return 하는 solution 함수를 작성해 주세요.
+     * @param arr
+     * @return
+     */
+    public int[] solution_add(int[] arr) {
+        int[] answer = {};
+        int[] repeatedArray = {};
+        for(int i=0; i< arr.length; i++){
+            int n  = arr[i];
+            repeatedArray = IntStream.generate(() -> n).limit(arr[i]).toArray();
+            answer= IntStream.concat(Arrays.stream(answer), Arrays.stream(repeatedArray)).toArray();
+        }
+        return answer;
+    }
     public static void main(String[] args) {
 //        int[] arr = {1, 2, 3, 100, 99, 98};
         int[] arr = {1, 4, 2, 5, 3};
@@ -383,13 +655,21 @@ public class Solution00_exchangeArray {
 
 //        solution_sequence2(arr, queris);
 
-        String[] intStrs ={"0123456789","9876543210","9999999999999"};
-        int k =50000;
-        int s =	5;
-        int l =	5;
-       int [] result =  solution_mkArray5(intStrs , k, s, l);
+//        String[] intStrs ={"0123456789","9876543210","9999999999999"};
+//        int k =50000;
+//        int s =	5;
+//        int l =	5;
+//       int [] result =  solution_mkArray5(intStrs , k, s, l);
+//        int[] array = {1, 2, 3, 2, 5, 2, 7}; // 예시 배열
+//
+//        solution_find2(array);
 
-       System.out.println(result);
+        String [] str =  {"u", "u", "r", "l" ,"u","sdf"	};
+       solution_leftRight2 (str);
+
+//       int []arr123 = {2, 1, 6} ;
+//       solution_exchangeindex(arr123, 2);
+//       System.out.println(result);
 
     }
 
