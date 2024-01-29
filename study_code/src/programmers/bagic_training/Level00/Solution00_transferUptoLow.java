@@ -18,4 +18,10 @@ public class Solution00_transferUptoLow {
 
 //        System.out.println("!@#$%^&*(\\'\"<>?:;");
     }
+
+    public String solution(String myString) {
+        return myString.chars().mapToObj(c -> c=='a' || c=='A' ? Character.toUpperCase(c): Character.toLowerCase(c))
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }

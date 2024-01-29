@@ -81,6 +81,13 @@ public class Solution00_mkStr {
         return Arrays.stream(answer).sorted().toArray(String[]::new);
     }
 
+    public static String[] solution(String my_string) {
+        String[] answer = my_string.split(" ");
+
+        return Arrays.stream(answer).filter(word -> !word.isEmpty())
+                .toArray(String[]::new);
+    }
+
     /**
      * 접미사인지 확인하기
      * 문제 설명

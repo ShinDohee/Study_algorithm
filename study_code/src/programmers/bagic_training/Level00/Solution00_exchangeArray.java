@@ -741,6 +741,22 @@ public class Solution00_exchangeArray {
         return answer.toArray(new String[0]);
     }
 
+
+    /**
+     * ad 제거하기
+     * 문제 설명
+     * 문자열 배열 strArr가 주어집니다. 배열 내의 문자열 중 "ad"라는 부분 문자열을 포함하고 있는 모든 문자열을 제거하고 남은 문자열을 순서를 유지하여 배열로 return 하는 solution 함수를 완성해 주세요.
+     * @param strArr
+     * @return
+     */
+    public String[] solution_revomeAd(String[] strArr) {
+        List<String> answer = new ArrayList<>();
+         answer = IntStream.range(0, strArr.length)
+                .filter(i -> strArr[i].contains("ad")).mapToObj(index ->strArr[index])
+                .collect(Collectors.toList());
+        return answer.toArray(new String[0]);
+    }
+
     /**
      * 배열의 원소만큼 추가하기
      * 문제 설명

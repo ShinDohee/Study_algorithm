@@ -7,6 +7,24 @@ public class Solution00_ndexStr {
     }
 
     /**
+     * 특정 문자열로 끝나는 가장 긴 부분 문자열 찾기
+     * 문제 설명
+     * 문자열 myString과 pat가 주어집니다. myString의 부분 문자열중 pat로 끝나는 가장 긴 부분 문자열을 찾아서 return 하는 solution 함수를 완성해 주세요.
+     * @param myString
+     * @param pat
+     * @return
+     */
+    public static String solution_findeLongIndex(String myString, String pat) {
+        String answer = "";
+        int lastIndexStart  =    myString.lastIndexOf(pat);
+        int endIndex  =  myString.lastIndexOf(pat) + pat.length();
+
+
+
+        return myString.substring(0, endIndex);
+    }
+
+    /**
      * 세로 읽기
      * 문제 설명
      * 문자열 my_string과 두 정수 m, c가 주어집니다. my_string을 한 줄에 m 글자씩 가로로 적었을 때 왼쪽부터 세로로 c번째 열에 적힌 글자들을 문자열로 return 하는 solution 함수를 작성해 주세요.
@@ -24,6 +42,24 @@ public class Solution00_ndexStr {
         }
 
         return result.toString();
+    }
+
+    /**
+     * 문자열이 몇 번 등장하는지 세기
+     * 문제 설명
+     * 문자열 myString과 pat이 주어집니다. myString에서 pat이 등장하는 횟수를 return 하는 solution 함수를 완성해 주세요.
+      * @param myString
+     * @param pat
+     * @return
+     */
+    public static int solution_countpat(String myString, String pat) {
+        int answer = 0;
+        for(int i =0; i< myString.length()-pat.length()+1 ; i++){
+            if(myString.substring(i, i+pat.length()).equals(pat)) {
+                answer++;
+            }
+        }
+        return answer;
     }
 
     /**
@@ -84,6 +120,12 @@ public class Solution00_ndexStr {
 
 
     public static void main(String[] args) {
-        System.out.println(solution("ProgrammerS123"	,11));
+//        System.out.println(solution("ProgrammerS123"	,11));
+////        "AbCdEFG"	"dE"	"AbCdE"
+//        solution_findeLongIndex("AbCdEFG", "dE");
+//        solution_findeLongIndex("AAAAaaaa", "a");
+
+        solution_countpat("banana", "ana");
     }
+
 }
