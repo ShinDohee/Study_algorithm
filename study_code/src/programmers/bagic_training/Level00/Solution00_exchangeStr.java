@@ -1,5 +1,6 @@
 package programmers.bagic_training.Level00;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -107,6 +108,35 @@ public class Solution00_exchangeStr {
         return   Arrays.stream(arr).collect(Collectors.joining());
     }
 
+    /**
+     * x 사이의 개수
+     * 문제 설명
+     * 문자열 myString이 주어집니다. myString을 문자 "x"를 기준으로 나눴을 때 나눠진 문자열 각각의 길이를 순서대로 저장한 배열을 return 하는 solution 함수를 완성해 주세요.
+     * @param myString
+     * @return
+     */
+    public static  int[] solution_checkx(String myString) {
+        String [] strarrv = myString.replace("x",", ").split(",");
+        int[] answer = Arrays.stream(strarrv).mapToInt(x-> x.trim().length()).toArray();
+        return answer;
+    }
+
+    /**
+     * 문자열 잘라서 정렬하기
+     * 문제 설명
+     * 문자열 myString이 주어집니다. "x"를 기준으로 해당 문자열을 잘라내 배열을 만든 후 사전순으로 정렬한 배열을 return 하는 solution 함수를 완성해 주세요.
+     *
+     * 단, 빈 문자열은 반환할 배열에 넣지 않습니다.
+     * @param myString
+     * @return
+     */
+    public static String[] solution_strSplit(String myString) {
+        String [] answer = myString.split("x");
+        return Arrays.stream(answer).filter(x -> !x.isEmpty())
+                .sorted()
+                .toArray(String[]::new) ;
+    }
+
     public static void main(String[] args) {
         /**
          *         int n = 10 ;
@@ -119,8 +149,10 @@ public class Solution00_exchangeStr {
 //        int[] indexList = {16, 6, 5, 3, 12, 14, 11, 11, 17, 12, 7};
 //        System.out.println(solution_makeString(myString, indexList));
          String str = "rermgorpsam";
-         int [][] arr = {{2, 3},{0, 7},{5, 9},{6, 10}};
-        solution_stransStr(str, arr);
+//         int [][] arr = {{2, 3},{0, 7},{5, 9},{6, 10}};
+//        solution_stransStr(str, arr);
+
+        solution_strSplit ("dxccxbbbxaaaa");
 
     }
 }
