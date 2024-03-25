@@ -38,6 +38,56 @@ public class Solution00_exchangeArray {
     }
 
     /**
+     * 배열 비교하기
+     * 제출 내역
+     * 문제 설명
+     * 이 문제에서 두 정수 배열의 대소관계를 다음과 같이 정의합니다.
+     *
+     * 두 배열의 길이가 다르다면, 배열의 길이가 긴 쪽이 더 큽니다.
+     * 배열의 길이가 같다면 각 배열에 있는 모든 원소의 합을 비교하여 다르다면 더 큰 쪽이 크고, 같다면 같습니다.
+     * 두 정수 배열 arr1과 arr2가 주어질 때, 위에서 정의한 배열의 대소관계에 대하여 arr2가 크다면 -1, arr1이 크다면 1, 두 배열이 같다면 0을 return 하는 solution 함수를 작성해 주세요.
+     * @param arr1
+     * @param arr2
+     * @return
+     */
+    public static int solution_vsArrayLength(int[] arr1, int[] arr2) {
+        int answer = 0;
+        if(arr1.length == arr2.length){
+            int sum_Arr1 = Arrays.stream(arr1).sum();
+            int sum_Arr2 = Arrays.stream(arr2).sum();
+
+            if(sum_Arr1 == sum_Arr2) return 0;
+            else  return sum_Arr1 > sum_Arr2 ? 1:-1;
+
+        }else {
+            return arr1.length < arr2.length ? -1: 1;
+        }
+
+
+    }
+
+
+    /**
+     * Todo : 꼭 복기하기
+     * 문자열 묶기
+     * 제출 내역
+     * 문제 설명
+     * 문자열 배열 strArr이 주어집니다. strArr의 원소들을 길이가 같은 문자열들끼리 그룹으로 묶었을 때 가장 개수가 많은 그룹의 크기를 return 하는 solution 함수를 완성해 주세요.
+     * @param strArr
+     * @return
+     */
+    public static  int solution_wrapStr(String[] strArr) {
+        int answer = 0;
+        Map<Integer, Long> groupSizes = Arrays.stream(strArr)
+                .collect(Collectors.groupingBy(String::length, Collectors.counting()));
+
+        return groupSizes.values().stream()
+                .mapToInt(Math::toIntExact)
+                .max()
+                .orElse(0);
+
+    }
+    /**
      * n 번째 원소까지
      * 정수 리스트 num_list와 정수 n이 주어질 때, num_list의 첫 번째 원소부터 n 번째 원소까지의 모든 원소를 담은 리스트를 return하도록 solution 함수를 완성해주세요.
      * https://school.programmers.co.kr/learn/courses/30/lessons/181889
@@ -77,6 +127,43 @@ public class Solution00_exchangeArray {
         return answer;
     }
 
+    /**
+     * 배열 만들기 6
+     * 제출 내역
+     * 문제 설명
+     * 0과 1로만 이루어진 정수 배열 arr가 주어집니다. arr를 이용해 새로운 배열 stk을 만드려고 합니다.
+     *
+     * i의 초기값을 0으로 설정하고 i가 arr의 길이보다 작으면 다음을 반복합니다.
+     *
+     * 만약 stk이 빈 배열이라면 arr[i]를 stk에 추가하고 i에 1을 더합니다.
+     * stk에 원소가 있고, stk의 마지막 원소가 arr[i]와 같으면 stk의 마지막 원소를 stk에서 제거하고 i에 1을 더합니다.
+     * stk에 원소가 있는데 stk의 마지막 원소가 arr[i]와 다르면 stk의 맨 마지막에 arr[i]를 추가하고 i에 1을 더합니다.
+     * 위 작업을 마친 후 만들어진 stk을 return 하는 solution 함수를 완성해 주세요.
+     *
+     * 단, 만약 빈 배열을 return 해야한다면 [-1]을 return 합니다.
+     * @param arr
+     * @return
+     */
+    public static  int[] solution_mkArray6(int[] arr) {
+        ArrayList<Integer> stk = new ArrayList<>();
+
+        int i = 0;
+        while (i < arr.length) {
+            if (stk.isEmpty()) {
+                stk.add(arr[i]);
+            } else {
+                if (stk.get(stk.size() - 1) == arr[i]) {
+                    stk.remove(stk.size() - 1);
+                } else {
+                    stk.add(arr[i]);
+                }
+            }
+            i++;
+        }
+
+        return stk.isEmpty() ? new int[]{-1} : stk.stream().mapToInt(Integer::intValue).toArray();
+
+    }
 
     /**
      * 조건에 맞게 수열 변환하기 2
@@ -757,6 +844,62 @@ public class Solution00_exchangeArray {
         return answer.toArray(new String[0]);
     }
 
+
+    public static  int[] solution_insertAndRemove(int[] arr, boolean[] flag) {
+        List<Integer> list = new ArrayList<>();
+        int[] answer = {};
+        for (int i = 0; i < flag.length; i++) {
+            if (flag[i]) {
+                for (int j = 0; j < 2*arr[i]; j++) {
+                    list.add(arr[i]);
+                }
+            } else {
+                if (arr[i] <= list.size()) {
+                    for (int j = 0; j < arr[i]; j++) {
+                        list.remove(list.size() - 1);
+                    }
+                }
+            }
+        }
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    /**
+     * 무작위로 K개의 수 뽑기
+     * 제출 내역
+     * 문제 설명
+     * 랜덤으로 서로 다른 k개의 수를 저장한 배열을 만드려고 합니다. 적절한 방법이 떠오르지 않기 때문에 일정한 범위 내에서 무작위로 수를 뽑은 후, 지금까지 나온적이 없는 수이면 배열 맨 뒤에 추가하는 방식으로 만들기로 합니다.
+     *
+     * 이미 어떤 수가 무작위로 주어질지 알고 있다고 가정하고, 실제 만들어질 길이 k의 배열을 예상해봅시다.
+     *
+     * 정수 배열 arr가 주어집니다. 문제에서의 무작위의 수는 arr에 저장된 순서대로 주어질 예정이라고 했을 때, 완성될 배열을 return 하는 solution 함수를 완성해 주세요.
+     *
+     * 단, 완성될 배열의 길이가 k보다 작으면 나머지 값을 전부 -1로 채워서 return 합니다.
+     * @param arr
+     * @param k
+     * @return
+     */
+    public static int[] solution_pickupK(int[] arr, int k) {
+
+        List<Integer> list = Arrays.stream(arr)
+                                    .distinct()
+                                    .boxed()
+                                    .collect(Collectors.toList());
+
+        int size = list.size();
+        if(list.size() <k){
+            for(int i =0; i< k-size ; i++){
+                list.add(-1);
+            }
+        }else {
+            list.subList(k , size).clear();
+        }
+
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
     /**
      * 배열의 원소만큼 추가하기
      * 문제 설명
@@ -778,9 +921,9 @@ public class Solution00_exchangeArray {
     }
     public static void main(String[] args) {
 //        int[] arr = {1, 2, 3, 100, 99, 98};
-        int[] arr = {1, 2, 3, 100, 99, 98};
-        int [][] queris = {{0, 4, 1},{0, 3, 2},{0, 3, 3}};
-        solution_optionArray2 (arr);
+//        int[] arr = {1, 2, 3, 100, 99, 98};
+//        int [][] queris = {{0, 4, 1},{0, 3, 2},{0, 3, 3}};
+//        solution_optionArray2 (arr);
 //        // solution 메서드 호출
 //        int[] result = solution(arr);
 
@@ -800,13 +943,20 @@ public class Solution00_exchangeArray {
 //
 //        solution_find2(array);
 
-        String [] str =  {"nami", "ahri", "jayce", "garen", "ivern", "vex", "jinx"};
-       solution_five (str);
-
+//        String [] str =  {"nami", "ahri", "jayce", "garen", "ivern", "vex", "jinx"};
+//       solution_five (str);
+//        int[] array = {0}; // 예시 배열
+//        solution_pickupK(array, 7);
 //       int []arr123 = {2, 1, 6} ;
 //       solution_exchangeindex(arr123, 2);
 //       System.out.println(result);
+        int[] array1 ={0, 1, 1, 1, 0};
+        int [] arr2 ={3,3,3,3,3};
 
+        solution_vsArrayLength(array1, arr2);
+
+
+        solution_mkArray6(array1);
     }
 
 

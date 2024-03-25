@@ -22,6 +22,16 @@ public class Solution00_ndexArray {
         return answer;
     }
 
+    public static int[] solution_mk2powLength(int[] arr) {
+        int taretLength = 1;
+        while(taretLength < arr.length){
+            taretLength *= 2;
+        }
+        int[] answer = Arrays.copyOf(arr, taretLength);
+
+        return answer;
+    }
+
     /**
      * 뒤에서 5등까지
      * 문제 설명
