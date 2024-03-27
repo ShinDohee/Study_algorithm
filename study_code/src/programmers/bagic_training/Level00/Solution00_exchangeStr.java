@@ -1,6 +1,7 @@
 package programmers.bagic_training.Level00;
 
 import java.lang.reflect.Array;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -157,6 +158,40 @@ public class Solution00_exchangeStr {
 
         return Arrays.stream(answer).count() ==0 ? new String[]{"EMPTY"} : answer;
     }
+
+    public static String solution_(String n_str) {
+        int n = Integer.parseInt(n_str);
+
+        return String.valueOf(n);
+    }
+
+
+    public static  String solution_sumAB(String a, String b) {
+        BigInteger numA = new BigInteger(a);
+        BigInteger numB = new BigInteger(b);
+
+        return String.valueOf(  numA.add(numB));
+    }
+
+    /**
+     * 꼬리 문자열
+     * 제출 내역
+     * 문제 설명
+     * 문자열들이 담긴 리스트가 주어졌을 때, 모든 문자열들을 순서대로 합친 문자열을 꼬리 문자열이라고 합니다. 꼬리 문자열을 만들 때 특정 문자열을 포함한 문자열은 제외시키려고 합니다. 예를 들어 문자열 리스트 ["abc", "def", "ghi"]가 있고 문자열 "ef"를 포함한 문자열은 제외하고 꼬리 문자열을 만들면 "abcghi"가 됩니다.
+     *
+     * 문자열 리스트 str_list와 제외하려는 문자열 ex가 주어질 때, str_list에서 ex를 포함한 문자열을 제외하고 만든 꼬리 문자열을 return하도록 solution 함수를 완성해주세요.
+     * @param str_list
+     * @param ex
+     * @return
+     */
+    public static String solution_mkStr(String[] str_list, String ex) {
+        String answer = Arrays.stream(str_list)
+                .filter(x -> !x.contains(ex))
+                .collect(Collectors.joining());
+        return answer;
+    }
+
+
     public static void main(String[] args) {
         /**
          *         int n = 10 ;
@@ -173,6 +208,9 @@ public class Solution00_exchangeStr {
 ////        solution_stransStr(str, arr);
 //
 //        solution_strSplit ("dxccxbbbxaaaa");
-        solution_severalSplit("baconlettucetomato");
+//        solution_severalSplit("baconlettucetomato");
+
+        solution_sumAB("18446744073709551615", "287346502836570928366");
+        solution_("00010");
     }
 }

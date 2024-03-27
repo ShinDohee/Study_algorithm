@@ -1,5 +1,6 @@
 package programmers.bagic_training.Level00;
 
+import javax.smartcardio.ATR;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -865,6 +866,18 @@ public class Solution00_exchangeArray {
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
 
+    public static int solution_vsDate(int[] date1, int[] date2) {
+            int mismatchIndex = IntStream.range(0, Math.min(date1.length, date2.length))
+                    .filter(i -> date1[i] != date2[i])
+                    .findFirst()
+                    .orElse(-1);
+            int result =0;
+            if(mismatchIndex != -1){
+                result = date1[mismatchIndex] - date2[mismatchIndex];
+            }
+            return result >0 ? 0:1 ;
+    }
+
     /**
      * 무작위로 K개의 수 뽑기
      * 제출 내역
@@ -950,13 +963,17 @@ public class Solution00_exchangeArray {
 //       int []arr123 = {2, 1, 6} ;
 //       solution_exchangeindex(arr123, 2);
 //       System.out.println(result);
-        int[] array1 ={0, 1, 1, 1, 0};
-        int [] arr2 ={3,3,3,3,3};
+//        int[] array1 ={0, 1, 1, 1, 0};
+//        int [] arr2 ={3,3,3,3,3};
+//
+//        solution_vsArrayLength(array1, arr2);
+//
+//
+//        solution_mkArray6(array1);
 
-        solution_vsArrayLength(array1, arr2);
-
-
-        solution_mkArray6(array1);
+        int [] date1 = {2021, 12, 28};
+        int [] date2 = {2021, 12, 27};
+        solution_vsDate(date1 , date2);
     }
 
 
