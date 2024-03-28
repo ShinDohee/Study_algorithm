@@ -174,6 +174,21 @@ public class Solution00_exchangeStr {
     }
 
     /**
+     * l로 만들기
+     * 제출 내역
+     * 문제 설명
+     * 알파벳 소문자로 이루어진 문자열 myString이 주어집니다. 알파벳 순서에서 "l"보다 앞서는 모든 문자를 "l"로 바꾼 문자열을 return 하는 solution 함수를 완성해 주세요.
+     * @param myString
+     * @return
+     */
+    public static String solution_transferI(String myString) {
+        String answer =  myString.chars()
+                .mapToObj(c-> (char)c <'l' ? 'l' : (char)c)
+                .map(Object::toString)
+                .collect(Collectors.joining());
+        return answer;
+    }
+    /**
      * 꼬리 문자열
      * 제출 내역
      * 문제 설명
