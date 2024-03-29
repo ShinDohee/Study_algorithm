@@ -1,12 +1,11 @@
 package programmers.bagic_training.Level01;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class exchangeArr {
+public class Solution01_exchangeArr {
     public static int[] solution_mkdoublevalue(int[] numbers) {
         int[] answer =  Arrays.stream(numbers)
                 .map(x-> x = 2*x)
@@ -80,6 +79,13 @@ public class exchangeArr {
         return list.size() > 1 && list.get(0).getValue().size() - list.get(1).getValue().size() == 0 ? -1 : list.get(0).getKey();
     }
 
+
+    public int[] solution_reverseArray(int[] num_list) {
+        int [] result = IntStream.range(0, num_list.length)
+                .map(i -> num_list[num_list.length - 1 - i])
+                .toArray();
+        return  result;
+    }
 
     /**
      *
