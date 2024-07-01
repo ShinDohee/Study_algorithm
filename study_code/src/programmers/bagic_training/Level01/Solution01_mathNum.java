@@ -1,5 +1,7 @@
 package programmers.bagic_training.Level01;
 
+import java.util.stream.IntStream;
+
 public class Solution01_mathNum {
     /**
      * 분수의 덧셈
@@ -94,5 +96,26 @@ public class Solution01_mathNum {
     public int solution_calcAge(int age) {
         int answer = 0;
         return 2022-age +1;
+    }
+
+    /**
+     * 머쓱이네 양꼬치 가게는 10인분을 먹으면 음료수 하나를 서비스로 줍니다.
+     * 양꼬치는 1인분에 12,000원,
+     * 음료수는 2,000원입니다.
+     * 정수 n과 k가 매개변수로 주어졌을 때,
+     * 양꼬치 n인분과 음료수 k개를 먹었다면 총얼마를 지불해야 하는지 return 하도록 solution 함수를 완성해보세요.
+     * @param n
+     * @param k
+     * @return
+     */
+
+    public int solution(int n, int k) {
+        int serviceCount = n/10;
+        return (n*1200)+(k-serviceCount)*2000;
+    }
+
+    public int solution_sumeven(int n) {
+        int answer = IntStream.range(0, n).filter(i -> i%2==0).sum();
+        return answer;
     }
 }

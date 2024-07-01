@@ -27,6 +27,12 @@ public class Solution01_exchangeStr {
                 .collect(Collectors.joining());
     }
 
+    public static String solution_remot(String my_string, String letter) {
+
+        return my_string.replace(letter,"");
+
+    }
+
     public static void solution_printStar(int n) {
         IntStream.range(1, n + 1)
                 .forEach(i -> {

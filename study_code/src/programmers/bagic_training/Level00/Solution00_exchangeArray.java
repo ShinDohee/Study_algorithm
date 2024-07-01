@@ -1,6 +1,6 @@
 package programmers.bagic_training.Level00;
 
-import javax.smartcardio.ATR;
+//import javax.smartcardio.ATR;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
