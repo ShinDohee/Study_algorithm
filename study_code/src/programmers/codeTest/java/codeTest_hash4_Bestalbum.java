@@ -1,25 +1,20 @@
 package programmers.codeTest.java;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
+import lombok.Getter;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class codeTest_hash4_Bestalbum {
 
-	public static HashSet<String> genres_set = new HashSet<String>(); // 장르 중복 제거 
-	public static HashMap<Integer, String> category_Plays = new HashMap<Integer, String>(); //장르별 총 플레이횟수 
+	public static HashMap<Integer, String> category_PlaysCount = new HashMap<Integer, String>(); //장르별 총 플레이횟수
 	public static HashMap<Integer, String> category_gCount = new HashMap<Integer, String>(); //장르별 총노래수
 
 //	public static HashMap<Integer, Integer> map_player = new HashMap<Integer, Integer>();
 //	public static HashMap<String, Integer> map_genres = new HashMap<String, Integer>();
-	public static ArrayList<Map<String, Integer>> list_titalInfo; // map 리스트로 변경 
+	public static ArrayList<Map<String, Integer>> list_titalInfo; // map 리스트로 변경
 
 	// 장르- 재생횟수 (중복제거)\ -> 재생횟수가 높은거 부터
 
@@ -29,87 +24,59 @@ public class codeTest_hash4_Bestalbum {
 	//
 
 	public static int[] solution(String[] genres, int[] plays) {
+		// 장르별 총 재생 횟수를 저장할 Map
+		Map<String, Integer> genreTotalPlays = new HashMap<>();
+		// 각 노래의 장르와 인덱스, 재생 횟수를 매핑한 리스트
+		List<Song> songs = new ArrayList<>();
 
-		int idx=0;
-		int size =0;
-
-		list_titalInfo =  new ArrayList<Map<String, Integer>>(genres.length);
-		// 장르, 재생횟수 arraylist 으로 변경 
-		for (int i = 0; i < plays.length; i++) {
-			Map<String, Integer> emtpy = new HashMap<String, Integer>();
-			emtpy.put(genres[i], plays[i]);
-			list_titalInfo.add(i, emtpy );
-
-			
-			genres_set.add(genres[i]);
-
+		// 입력 데이터 처리
+		for (int i = 0; i < genres.length; i++) {
+			String genre = genres[i];
+			int play = plays[i];
+			genreTotalPlays.put(genre, genreTotalPlays.getOrDefault(genre, 0) + play);
+			songs.add(new Song(i, genre, play));
 		}
 
-		// 장르별 재생횟수 총합 
-		for (String x: genres_set) {
-			int count =0;
-			int song_count=0;
-			for(int i = 0; i < list_titalInfo.size(); i++) {
-				if(list_titalInfo.get(i).get(x) != null) {
-					count += list_titalInfo.get(i).get(x);
-					song_count++;
-					
-				}
-			}
-			category_Plays.put(count, x);
-			category_gCount.put(song_count, x);
-			if(song_count >= 2) {
-				size += 2;
-			}else {
-				size += 1;
-			}
-		}
-		
-		System.out.println(size);
-		int[] answer = new int  [size];
-		//중복 제거 및  총합 내림차순으로 
-		List<Entry<Integer, String>> list_entries = new ArrayList<Entry<Integer, String>>(category_Plays.entrySet());
+		// 장르별로 노래를 재생 횟수 순으로 정렬한 후, 최대 2곡씩 선택
+		List<Integer> bestAlbum = genreTotalPlays.keySet().stream()
+				.sorted((g1, g2) -> genreTotalPlays.get(g2) - genreTotalPlays.get(g1)) // 장르별 재생 횟수 내림차순 정렬
+				.flatMap(genre -> songs.stream()
+						.filter(song -> song.getGenre().equals(genre))
+						.sorted(Comparator.comparingInt(Song::getPlayCount).reversed().thenComparingInt(Song::getIndex))
+						.limit(2)
+						.map(Song::getIndex))
+				.collect(Collectors.toList());
 
-		Collections.sort(list_entries, new Comparator<Entry<Integer, String>>() {
-			@Override
-			public int compare(Entry<Integer, String> o1, Entry<Integer, String> o2) {
-				// TODO Auto-generated method stub
-				return o2.getKey().compareTo(o1.getKey());
-			}
-		});
-		
+		return bestAlbum.stream().mapToInt(Integer::intValue).toArray();
 
-		for (Entry<Integer, String> entry : list_entries) { // 장르
-			ArrayList array_players = new ArrayList();
-			for (int i = 0; i < genres.length; i++) {
-				if(genres[i] == entry.getValue()) {
-					array_players.add(plays[i]);
-				}
-			}
-			
-			Collections.sort(array_players);
-			Collections.reverse(array_players);
-
-
-			
-			for (int i = 0; i < 2; i++) {
-				Object vs_num = array_players.get(i);
-				for (int j = 0; j < list_titalInfo.size(); j++) {
-					Map map2 = list_titalInfo.get(j);
-					if(map2.values().contains(vs_num)) {
-						
-						answer[idx] = j;
-						idx++;
-						}
-				}
-
-			}
-		
-		}
-
-			
-		return answer;
 	}
+
+
+	static class Song {
+		private int index;
+		private String genre;
+		private int playCount;
+
+		public Song(int index, String genre, int playCount) {
+			this.index = index;
+			this.genre = genre;
+			this.playCount = playCount;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public String getGenre() {
+			return genre;
+		}
+
+		public int getPlayCount() {
+			return playCount;
+		}
+	}
+
+
 
 	public static void main(String[] args) {
 		String[] genres = { "classic", "pop", "classic", "classic", "pop" }; // 재생횟수
@@ -119,6 +86,8 @@ public class codeTest_hash4_Bestalbum {
 		solution(genres, plays);
 
 	}
+
+	// 노래를 나타내는 클래스
 
 
 
