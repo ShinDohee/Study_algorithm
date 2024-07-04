@@ -7,6 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+/**
+ * 50점 문제
+ */
+
 public class FindPrimeNb_Solution {
     public static int solution(String numbers) {
         String [] array = numbers.split("");
